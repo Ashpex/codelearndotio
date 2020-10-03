@@ -76,8 +76,55 @@ void OddNumberInEvenPos(int a[], int& n){
     }
 }
 
-void binarySearch(int a[], int& n){
-    
+int binarySearch(int a[], int& n, int r_value){
+    int foundPos = -1;
+    int left = 0;
+    int right = n - 1;
+    int mid = (left + right)/2;
+    while(true){
+        if(a[left] == a[right] == r_value){
+            foundPos = left;
+            return foundPos;
+        }
+        else if(left == right){
+            return foundPos;
+        }
+        else{
+            if(a[mid] < r_value){
+                left = mid + 1;
+                mid = (left + right)/2;
+            }
+            else if(a[mid] > r_value){
+                right = mid;
+                mid = (left + right)/2;
+            }
+            if(a[mid] == r_value){
+                foundPos = mid;
+                right = mid;
+                mid = (left + right)/2;
+            }
+        }
+    }
+}
+
+// Shorter version of binary search
+
+int binSearch(int a[], int& n, int r_value){
+    int left = 0;
+    int right = n - 1;
+    while(left < right){
+        int mid = (left + right)/2;
+        if(a[mid] < r_value){
+            left = mid + 1;
+        }
+        else{
+            right = mid;
+        }
+    }
+    if(a[left] == r_value){
+        return left;
+    }
+    return -1;
 }
 
 int main(){
@@ -85,6 +132,8 @@ int main(){
     int n = 0;
     cin >> n;
     inputArray(a,n);
-    OddNumberInEvenPos(a,n);
+    int x = 0;
+    cin >> x;
+    cout << binarySearch(a,n,x) << endl;
     return 0;
 }
