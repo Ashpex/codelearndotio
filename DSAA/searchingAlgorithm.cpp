@@ -53,7 +53,7 @@ void swapMinMax(int a[], int& n){
     swap(a[minPos],a[maxPos]);
 }
 
-int countOccurences(int a[], int n, int r_value){
+int countOccurences(int a[], int& n, int r_value){
     int occurences = 0;
     for(int i = 0; i < n; i++){
         if(a[i] == r_value){
@@ -63,13 +63,28 @@ int countOccurences(int a[], int n, int r_value){
     return occurences;
 }
 
+void OddNumberInEvenPos(int a[], int& n){
+    bool exist = false;
+    for(int i = 0; i < n; i+=2){
+        if (a[i] % 2 != 0){
+            exist = true;
+            cout << a[i] << " ";
+        }
+    }
+    if(!exist){
+        cout << "NULL";
+    }
+}
+
+void binarySearch(int a[], int& n){
+    
+}
+
 int main(){
     int a[MAX];
     int n = 0;
     cin >> n;
     inputArray(a,n);
-    int x = 0;
-    cin >> x;
-    cout << countOccurences(a,n,x) << endl;
+    OddNumberInEvenPos(a,n);
     return 0;
 }
