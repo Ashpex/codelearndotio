@@ -127,13 +127,40 @@ int binSearch(int a[], int& n, int r_value){
     return -1;
 }
 
+void printArray(int a[], int& n, int r_startPos, int r_endPos){
+    for(int i = r_startPos; i <= r_endPos; i++){
+        cout << a[i] << " ";
+    }
+}
+
+bool continuousArray(int a[], int b[], int& n, int r_value){
+    b[0] = a[0];
+    for(int i = 1; i < n; i++){
+        b[i] = b[i-1] + a[i];
+    }
+    for(int i = 0; i < n; i++){
+        if(b[i] == r_value){
+            printArray(a,n,0,i);
+        }
+        if(b[i] > r_value){
+            int l = binSearch(b,n,b[i] - r_value);
+            if(l != -1){
+                printArray(a,n,l+1,i);
+                return true;
+            }
+        }
+    }
+    return -1;
+}
+
 int main(){
     int a[MAX];
+    int b[MAX];
     int n = 0;
     cin >> n;
     inputArray(a,n);
     int x = 0;
     cin >> x;
-    cout << binarySearch(a,n,x) << endl;
+    continuousArray(a,b,n,x);
     return 0;
 }
