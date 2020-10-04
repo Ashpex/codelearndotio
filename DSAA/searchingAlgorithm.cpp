@@ -141,6 +141,7 @@ bool continuousArray(int a[], int b[], int& n, int r_value){
     for(int i = 0; i < n; i++){
         if(b[i] == r_value){
             printArray(a,n,0,i);
+            return true;
         }
         if(b[i] > r_value){
             int l = binSearch(b,n,b[i] - r_value);
@@ -162,5 +163,8 @@ int main(){
     int x = 0;
     cin >> x;
     continuousArray(a,b,n,x);
+    if(!continuousArray){
+        cout << "-1";
+    }
     return 0;
 }
