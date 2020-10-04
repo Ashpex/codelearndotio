@@ -154,6 +154,32 @@ bool continuousArray(int a[], int b[], int& n, int r_value){
     return -1;
 }
 
+int interpolationSearch(int a[], int& n, int& r_value){
+    int left = 0;
+    int right = n - 1;
+    while(a[left] != a[right] && r_value >= a[left] && r_value <= a[right]){
+        int mid = left + (right - left)*(r_value - a[left])/(a[right] - a[left]);
+        if(a[mid] < r_value){
+            left = mid + 1;
+        }
+        else if(a[mid] > r_value){
+            right = mid - 1;
+        }
+        else{
+            if(mid > 0 && a[mid-1] == r_value){
+                right = mid - 1;
+            }
+            else{
+                return mid;
+            }
+        }
+    }
+    if(a[left] == r_value){
+        return left;
+    }
+    return -1;
+}
+
 int main(){
     int a[MAX];
     int b[MAX];
@@ -162,9 +188,6 @@ int main(){
     inputArray(a,n);
     int x = 0;
     cin >> x;
-    continuousArray(a,b,n,x);
-    if(!continuousArray){
-        cout << "-1";
-    }
+    cout << interpolationSearch(a,n,x) << endl;
     return 0;
 }
