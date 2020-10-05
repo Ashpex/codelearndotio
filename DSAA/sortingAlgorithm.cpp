@@ -105,12 +105,25 @@ void mergeSort(int a[], int l, int r){
     }
 }
 
+void shellSort(int a[], int& n){
+    int interval, i, j, temp;
+    for(interval = n/2; interval > 0; interval /= 2){
+        for(i = interval; i < n; i++){
+            temp = a[i];
+            for(j = i; j >= interval && a[j-interval] > temp; j-= interval){
+                a[j] = a[j - interval];
+            }
+            a[j] = temp;
+        }
+    }
+}
+
 int main(){
     int a[MAX];
     int n = 0;
     cin >> n;
     inputArray(a,n);
-    mergeSort(a,0,n-1);
+    shellSort(a,n);
     outputArray(a,n);
     return 0;
 }
