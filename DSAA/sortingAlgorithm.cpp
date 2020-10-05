@@ -31,12 +31,24 @@ void bubbleSort(int a[], int& n){
     }
 }
 
+void insertionSort(int a[], int& n){
+    for(int i = 1; i < n; i++){
+        int index = i;
+        int value = a[i];
+        while(index > 0 && a[index-1] > value){
+            a[index] = a[index - 1];
+            index --;
+        }
+        a[index] = value;
+    }
+}
+
 int main(){
     int a[MAX];
     int n = 0;
     cin >> n;
     inputArray(a,n);
-    bubbleSort(a,n);
+    insertionSort(a,n);
     outputArray(a,n);
     return 0;
 }
