@@ -43,12 +43,27 @@ void insertionSort(int a[], int& n){
     }
 }
 
+void selectionSort(int a[], int& n){
+    int indexMin = 0;
+    for(int i = 0; i < n-1; i++){
+        indexMin = i;
+        for(int j = i+1; j < n; j++){
+            if(a[j] < a[indexMin]){
+                indexMin = j;
+            }
+        }
+        if(i != indexMin){
+            swap(a[i],a[indexMin]);
+        }
+    }
+}
+
 int main(){
     int a[MAX];
     int n = 0;
     cin >> n;
     inputArray(a,n);
-    insertionSort(a,n);
+    selectionSort(a,n);
     outputArray(a,n);
     return 0;
 }
