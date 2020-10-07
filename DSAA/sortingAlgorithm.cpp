@@ -118,12 +118,48 @@ void shellSort(int a[], int& n){
     }
 }
 
+void quickSort(int a[], int l, int r){
+	int p = a[(l+r)/2];
+	int i = l;
+    int j = r;
+	while (i < j){
+		while (a[i] < p){
+			i++;
+		}
+		while (a[j] > p){
+			j--;
+		}
+		if (i <= j){
+            swap(a[i],a[j]);
+			i++;
+			j--;
+		}
+	}
+	if (i < r){
+		quickSort(a, i, r);
+	}
+	if (l < j){
+		quickSort(a, l, j);
+	}
+}
+
+int uniqueSmalletsNum(int a[], int& n){
+    quickSort(a,0,n-1);
+    for(int i = 0; i < n; i++){
+        if(a[0] > 0){
+            return 0;
+        }
+        if( (a[i+1] != a[i]) && (a[i+1] - a[i] != 1)){
+            return a[i] + 1;
+        }
+    }
+}
+
 int main(){
     int a[MAX];
     int n = 0;
     cin >> n;
     inputArray(a,n);
-    shellSort(a,n);
-    outputArray(a,n);
+    cout << uniqueSmalletsNum(a,n) << endl;
     return 0;
 }
