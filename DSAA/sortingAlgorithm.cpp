@@ -155,11 +155,25 @@ int uniqueSmalletsNum(int a[], int& n){
     }
 }
 
+void Occurences(int a[], int& n){
+    quickSort(a,0,n-1);
+    int count = 1;
+    for(int i = 0; i < n; i++){
+        if(a[i] == a[i+1]){
+            count++;
+        }
+        else{
+            cout << a[i] << " " << count << "; ";
+            count = 1;
+        }
+    }
+}
+
 int main(){
     int a[MAX];
     int n = 0;
     cin >> n;
     inputArray(a,n);
-    cout << uniqueSmalletsNum(a,n) << endl;
+    Occurences(a,n);
     return 0;
 }
