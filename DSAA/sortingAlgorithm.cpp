@@ -179,14 +179,52 @@ int fewestPeople(int a[], int& n, int r_distance){
     }
     return ++count;
 }
+void deleteElement(int a[], int& n, int r_pos){
+    for(int i = r_pos; i < n-1; i++){
+        a[i] = a[i+1];
+    }
+    n--;
+}
+bool squareNumber(int n){
+    if(n == 1){
+        return true;
+    }
+    for(int i = 1; i < n; i++){
+        if(i*i == n){
+            return true;
+        }
+    }
+    return false;
+}
+
+void squareNumber(int a[], int& n){
+    int b[MAX];
+    int j = 0;
+    for(int i = 0; i < n; i++){
+        if(squareNumber(a[i])){
+            b[j] = a[i];
+            j++;
+        }
+    }
+    if(j == 0){
+        cout << "NULL";
+    }
+    else{
+        quickSort(b,0,j-1);
+        for(int i = 0; i < j-1; i++){
+            if(b[i] == b[i+1]){
+                deleteElement(b,j,i+1);
+            }
+        }
+        outputArray(b,j);
+    }
+}
 
 int main(){
     int a[MAX];
     int n = 0;
     cin >> n;
     inputArray(a,n);
-    int distance = 0;
-    cin >> distance;
-    cout << fewestPeople(a,n,distance);
+    squareNumber(a,n);
     return 0;
 }
