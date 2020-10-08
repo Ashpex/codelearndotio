@@ -169,11 +169,24 @@ void Occurences(int a[], int& n){
     }
 }
 
+int fewestPeople(int a[], int& n, int r_distance){
+    quickSort(a,0,n-1);
+    int count = 0;
+    for(int i = 0; i < n-1; i++){
+        if(a[i+1] - a[i] > r_distance){
+            count++;
+        }
+    }
+    return ++count;
+}
+
 int main(){
     int a[MAX];
     int n = 0;
     cin >> n;
     inputArray(a,n);
-    Occurences(a,n);
+    int distance = 0;
+    cin >> distance;
+    cout << fewestPeople(a,n,distance);
     return 0;
 }
