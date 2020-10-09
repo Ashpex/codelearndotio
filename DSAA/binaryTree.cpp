@@ -75,16 +75,35 @@ void Free(TNode* BTree)
     delete BTree;
 }
 
+void Input(TNode*& BTree, int n){
+    for(int i = 0; i < n; i++){
+        int value = 0;
+        cin >> value;
+        BTree = Insert(BTree,value);
+    }
+}
+
+bool isLeafNode(TNode *l){
+	return (l->pLeft == nullptr && l->pRight == nullptr);
+}
+
+int countLeafNode(TNode* BTree){
+    if(BTree == nullptr){
+        return 0;
+    }
+    if(isLeafNode(BTree)){
+        return 1;
+    }
+    return countLeafNode(BTree->pLeft) + countLeafNode(BTree->pRight);
+}
+
 int main(){
     int n = 0;
     int x = 0;
-    cin >> n;
     TNode* BTree = nullptr;
-    for(int i = 0; i < n; i++){
-        cin >> x;
-        BTree = Insert(BTree,x); 
-    }
-    InOrder_LNR(BTree);
+    cin >> n;
+    Input(BTree,n);
+    cout << countLeafNode(BTree);
     Free(BTree);
     return 0;
 }
