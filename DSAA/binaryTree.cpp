@@ -97,13 +97,20 @@ int countLeafNode(TNode* BTree){
     return countLeafNode(BTree->pLeft) + countLeafNode(BTree->pRight);
 }
 
+int treeLevel(TNode* BTree){
+    if(BTree == nullptr){
+        return -1;
+    }
+    return 1 + max(treeLevel(BTree->pRight), treeLevel(BTree->pLeft));   
+}
+
 int main(){
     int n = 0;
     int x = 0;
     TNode* BTree = nullptr;
     cin >> n;
     Input(BTree,n);
-    cout << countLeafNode(BTree);
+    cout << treeLevel(BTree);
     Free(BTree);
     return 0;
 }
