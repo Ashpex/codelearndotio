@@ -1,4 +1,5 @@
 #include <iostream>
+#include <math.h>
 using namespace std;
 
 struct TNode{
@@ -101,7 +102,17 @@ int treeLevel(TNode* BTree){
     if(BTree == nullptr){
         return -1;
     }
-    return 1 + max(treeLevel(BTree->pRight), treeLevel(BTree->pLeft));   
+    return 1 + max(treeLevel(BTree->pLeft), treeLevel(BTree->pRight));   
+}
+
+bool isAVL(TNode* BTree){
+    if(BTree == nullptr){
+        return true;
+    }
+    if (abs(treeLevel(BTree->pLeft) - treeLevel(BTree->pRight) > 1)){
+        return false;
+    }
+    return isAVL(BTree->pLeft) && isAVL(BTree->pRight);
 }
 
 int main(){
@@ -110,7 +121,10 @@ int main(){
     TNode* BTree = nullptr;
     cin >> n;
     Input(BTree,n);
-    cout << treeLevel(BTree);
+    if(isAVL(BTree)){
+        cout << "True";
+    }
+    else cout << "False";
     Free(BTree);
     return 0;
 }
