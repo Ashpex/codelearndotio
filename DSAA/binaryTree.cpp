@@ -115,16 +115,64 @@ bool isAVL(TNode* BTree){
     return isAVL(BTree->pLeft) && isAVL(BTree->pRight);
 }
 
+TNode* turnRight(TNode* a){
+    TNode* b = a->pLeft;
+    TNode* d = b->pRight;
+    a->pLeft = d;
+    b->pRight = a;
+    return b;
+}
+
+TNode* turnLeft(TNode* a){
+    TNode* b = a->pRight;
+    TNode* c = b->pLeft;
+    a->pRight = c;
+    b->pLeft = a;
+    return b;
+}
+
+TNode* updateTreeAvl(TNode* T){
+    if(abs(treeLevel(T->pLeft) - treeLevel(T->pRight)) > 1){
+        if(treeLevel(T->pLeft) > treeLevel(T->pRight)){
+            TNode* p = T->pLeft;
+            if(treeLevel(p->pLeft) >= treeLevel(p->pRight)){
+                T = turnRight(T);
+            }
+            else{
+                T->pLeft = turnLeft(T->pLeft);
+                T = turnRight(T);
+            }
+        }
+        else{
+            TNode* p = T->pRight;
+            if(treeLevel(T->pRight) >= treeLevel(T->pLeft)){
+                T = turnLeft(T);
+            }
+            else{
+                T->pRight = turnRight(T->pRight);
+                T = turnLeft(T);
+            }
+        }
+    }
+    if(T->pLeft != nullptr) {
+        T->pLeft = updateTreeAvl(T->pLeft);
+    }
+    if(T->pRight != nullptr){
+        T->pRight = updateTreeAvl(T->pRight);
+    }
+    return T;
+}
+
 int main(){
     int n = 0;
     int x = 0;
     TNode* BTree = nullptr;
     cin >> n;
     Input(BTree,n);
-    if(isAVL(BTree)){
-        cout << "True";
-    }
-    else cout << "False";
+	while(!isAVL(BTree)){
+		BTree = updateTreeAvl(BTree);		
+	}
+	cout << treeLevel(BTree);
     Free(BTree);
     return 0;
 }
