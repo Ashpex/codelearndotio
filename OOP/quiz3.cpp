@@ -14,10 +14,10 @@ public:
         cout << getPerimeter() << endl;
     }
     double getArea(){
-        return (length + width)*2;
+        return width*length;
     }
     double getPerimeter(){
-        return length*width;
+        return (length + width)*2;
     }
 };
 
