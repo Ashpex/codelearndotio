@@ -6,12 +6,12 @@ public:
     double length;
     double width;
     void getInformation(){
-        cin >> length;
         cin >> width;
+        cin >> length;
     }
     void display(){
-        cout << getArea() << endl;
-        cout << getPerimeter() << endl;
+        cout << "Area: " << getArea() << endl;
+        cout << "Perimeter: " << getPerimeter() << endl;
     }
     double getArea(){
         return width*length;
