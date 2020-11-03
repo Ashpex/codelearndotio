@@ -99,12 +99,15 @@ int countLeafNode(TNode* BTree){
 }
 
 int treeLevel(TNode* BTree){
-    if(BTree == nullptr){
-        return -1;
-    }
-    return 1 + max(treeLevel(BTree->pLeft), treeLevel(BTree->pRight));   
+	if (BTree == NULL) return -1;
+	return 1 + max(treeLevel(BTree->pLeft), treeLevel(BTree->pRight));
 }
 
+bool checkAvl(TNode* BTree){
+	if (BTree == NULL) 	return true;
+	if (abs(treeLevel(BTree->pLeft) - treeLevel(BTree->pRight)) > 1) return false;
+	return checkAvl(BTree->pLeft) && checkAvl(BTree->pRight);
+}
 bool isAVL(TNode* BTree){
     if(BTree == nullptr){
         return true;
@@ -169,7 +172,7 @@ int main(){
     TNode* BTree = nullptr;
     cin >> n;
     Input(BTree,n);
-	while(!isAVL(BTree)){
+	while(!checkAvl(BTree)){
 		BTree = updateTreeAvl(BTree);		
 	}
 	cout << treeLevel(BTree);
