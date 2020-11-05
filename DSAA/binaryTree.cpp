@@ -179,6 +179,33 @@ int count(TNode* T, int x){
     return count(T->pLeft,x);
 }
 
+void deleteNode(TNode* T){
+    if(T != nullptr){
+        if(T->pLeft != nullptr){
+            deleteNode(T->pLeft);
+        }
+        if(T->pRight != nullptr){
+            deleteNode(T->pRight);
+        }
+        delete T;
+    }
+}
+
+TNode* deleteNodeX(TNode* T, int x){
+    if(T != nullptr){
+        if(T->data == x){
+            deleteNode(T->pLeft);
+            deleteNode(T->pRight);
+            T = nullptr;
+        }
+        else if(T->data < x){
+            T->pRight = deleteNodeX(T->pRight,x);
+        }
+        else T->pLeft = deleteNodeX(T->pLeft,x);
+    }
+    return T;
+}
+
 int main(){
     int n = 0;
     int x = 0;
@@ -189,7 +216,13 @@ int main(){
 		BTree = updateTreeAvl(BTree);		
 	}
     cin >> x;
-	cout << count(BTree,x);
+    BTree = deleteNodeX(BTree,x);
+    if(BTree == nullptr){
+        cout << "NULL";
+    }
+    else{
+        InOrder_LNR(BTree);
+    }
     Free(BTree);
     return 0;
 }
