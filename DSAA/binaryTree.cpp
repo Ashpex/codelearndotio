@@ -166,6 +166,19 @@ TNode* updateTreeAvl(TNode* T){
     return T;
 }
 
+int count(TNode* T, int x){
+    if(T == nullptr){
+        return 0;
+    }
+    if(T->data == x){
+        return 1 + count(T->pLeft,x) + count(T->pRight, x);
+    }
+    else if(T->data < x){
+        return count(T->pRight,x);
+    }
+    return count(T->pLeft,x);
+}
+
 int main(){
     int n = 0;
     int x = 0;
@@ -175,7 +188,8 @@ int main(){
 	while(!checkAvl(BTree)){
 		BTree = updateTreeAvl(BTree);		
 	}
-	cout << treeLevel(BTree);
+    cin >> x;
+	cout << count(BTree,x);
     Free(BTree);
     return 0;
 }
